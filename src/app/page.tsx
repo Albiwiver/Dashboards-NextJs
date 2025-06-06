@@ -1,9 +1,6 @@
-import { MainTemplate, Hero } from "@/components";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <MainTemplate>
-      <Hero />
-    </MainTemplate>
-  );
+export default function HomePage() {
+  redirect("/login");
+  return null;
 }

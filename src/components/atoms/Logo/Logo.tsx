@@ -7,12 +7,11 @@ interface LogoProps {
 export const Logo = ({ className = "" }: LogoProps) => {
   return (
     <Image
-      className={`dark:invert ${className}`}
-      src="/next.svg"
-      alt="Next.js logo"
-      width={180}
-      height={38}
-      priority
+      className={` ${className}`}
+      width={130}
+      height={34}
+      src="ZoSale-Logo.svg"
+      alt="Logo de ZoSale"
     />
   );
 };

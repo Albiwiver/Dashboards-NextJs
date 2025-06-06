@@ -1,30 +1,38 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
+"use client";
+import React from "react";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = {
+  children?: React.ReactNode;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
   variant?: "primary" | "secondary";
-  children: ReactNode;
+  disabled?: boolean;
   className?: string;
-}
+};
 
-export const Button = ({
-  variant = "primary",
+export const Button: React.FC<ButtonProps> = ({
   children,
+  onClick,
+  type = "button",
+  variant = "primary",
+  disabled = false,
   className = "",
-  ...props
-}: ButtonProps) => {
+}) => {
   const baseStyles =
-    "rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 transition-colors";
-  const variantStyles = {
-    primary:
-      "bg-foreground text-background hover:bg-[#383838] dark:hover:bg-[#ccc]",
-    secondary:
-      "border border-black/[.08] dark:border-white/[.145] hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a]",
+    "px-4 py-2 rounded font-semibold cursor-pointer focus:outline-none transition-colors";
+  const variants = {
+    primary: "bg-primary text-white hover:bg-primary/60",
+    secondary: "bg-gray-200 text-interface1 hover:bg-gray-300",
   };
 
   return (
     <button
-      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
-      {...props}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`${baseStyles} ${variants[variant]} ${className} ${
+        disabled ? "opacity-50 cursor-not-allowed" : ""
+      }`}
     >
       {children}
     </button>
