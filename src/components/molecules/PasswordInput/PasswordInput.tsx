@@ -18,12 +18,11 @@ export const PasswordInput = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="h-14 flex items-center relative w-full">
+    <div className={`h-14 flex items-center relative w-full ${className}`}>
       <Input
         name={name}
         type={showPassword ? "text" : "password"}
         placeholder={placeholder}
-        className={className}
         required={required}
       />
       <button

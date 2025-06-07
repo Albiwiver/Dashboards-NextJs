@@ -26,7 +26,7 @@ export const LoginForm = () => {
         </label>
 
         <Link
-          href="/auth/login/modal/auth/reset-password"
+          href="/auth/login/modal/auth/forgot-password"
           className="text-primary font-urbanist hover:underline font-medium"
         >
           Forgot your password?

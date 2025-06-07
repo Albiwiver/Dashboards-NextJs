@@ -1,3 +1,6 @@
+import { IoIosArrowDown } from "react-icons/io";
+import { Button } from "@/components/atoms/Button/Button";
+
 export const publicNav = [
   {
     id: 1,
@@ -33,6 +36,13 @@ export const PublicNav = () => (
           {item.label}
         </a>
       ))}
+      <Button
+        variant="primary"
+        className="text-base font-urbanist font-semibold cursor-pointer py-3 rounded-lg transition-colors"
+      >
+        EN
+        <IoIosArrowDown className="inline ml-1" />
+      </Button>
     </nav>
   </div>
 );

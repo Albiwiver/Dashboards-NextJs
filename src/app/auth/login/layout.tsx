@@ -9,7 +9,7 @@ export default function LoginLayout({
   modal: ReactNode;
 }) {
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       <AuthLayout>
         {children}
         {modal}

@@ -19,7 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   className = "",
 }) => {
   const baseStyles =
-    "px-4 py-2 rounded font-semibold cursor-pointer focus:outline-none transition-colors";
+    "px-4 py-2 rounded-lg font-semibold cursor-pointer focus:outline-none transition-colors";
   const variants = {
     primary: "bg-primary text-white hover:bg-primary/60",
     secondary: "bg-gray-200 text-interface1 hover:bg-gray-300",

@@ -19,20 +19,20 @@ export default function ResetPasswordModal() {
           <PasswordInput
             name="newPassword"
             placeholder="New Password"
-            className="mb-2 px-4"
+            className="mb-2"
             required
           />
           <PasswordInput
             name="confirmPassword"
             placeholder="Confirm Password"
-            className="mb-4 px-4"
+            className="mb-4"
             required
           />
 
           <Button
             variant="primary"
             type="submit"
-            className="rounded-lg px-4 py-3 transition w-full font-urbanist font-semibold text-base"
+            className="py-3 transition w-full font-urbanist font-semibold text-base"
           >
             <Link href="auth/reset-password">Reset Password</Link>
           </Button>

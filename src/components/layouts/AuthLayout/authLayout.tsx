@@ -13,7 +13,7 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
     <main className="h-screen w-full flex">
       <div className="flex flex-col w-1/2 h-full relative items-start justify-start bg-white py-10">
         <div className="w-3/4 mx-auto">
-          <Logo className="mb-38" />
+          <Logo className="mb-36" />
         </div>
         {children}
       </div>
