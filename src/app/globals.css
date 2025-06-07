@@ -3,6 +3,7 @@
 @theme {
   --color-primary: #34caa5;
   --color-interface1: #04091e;
+  --color-interface2: #747681;
   --color-interface3: #3f435c;
   --color-greyUi: #fafafa;
 
@@ -12,4 +13,5 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }

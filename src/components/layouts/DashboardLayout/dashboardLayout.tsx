@@ -1,5 +1,5 @@
-import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
+import Sidebar from "@/components/organisms/Sidebar/Sidebar";
+import Header from "@/components/organisms/Header/Header";
 import "../globals.css";
 
 export default function DashboardLayout({

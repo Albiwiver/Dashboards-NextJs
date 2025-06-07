@@ -10,7 +10,7 @@ export const Logo = ({ className = "" }: LogoProps) => {
       className={` ${className}`}
       width={130}
       height={34}
-      src="ZoSale-Logo.svg"
+      src="/assets/logo/ZoSale-Logo.svg"
       alt="Logo de ZoSale"
     />
   );

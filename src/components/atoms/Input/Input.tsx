@@ -31,7 +31,7 @@ export const Input: React.FC<InputProps> = ({
       value={value}
       onChange={onChange}
       required={required}
-      className={`px-3 py-3 border font-urbanist placeholder:text-base bg-[#FAFAFA] rounded-lg w-full outline-primary border-none ${className}`}
+      className={`px-3 py-3 border font-urbanist placeholder:text-base bg-[#FAFAFA] rounded-lg w-full h-14 outline-primary border-none ${className}`}
     />
   );
 };

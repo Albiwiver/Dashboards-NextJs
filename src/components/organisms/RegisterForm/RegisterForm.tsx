@@ -1,36 +1,50 @@
-import Link from "next/link";
 import { Input } from "@/components/atoms/Input/Input";
 import { PasswordInput } from "@/components/molecules/PasswordInput/PasswordInput";
 import { Button } from "@/components/atoms/Button/Button";
 import { GoogleAppleButtons } from "../../molecules/GoogleAppleButtons/GoogleAppleButtons";
+import Link from "next/link";
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   return (
     <form className="flex flex-col space-y-2 w-3/4 mx-auto">
       <h3 className="text-interface1 font-bold text-3xl font-poppins mb-12">
-        Login to your account
+        Create your ZoSale ID
       </h3>
+      <div className="flex w-full items-center justify-center space-x-8 mb-6">
+        <Input
+          type="text"
+          placeholder="First Name"
+          className="mb-2 py-4"
+          required
+        />
+        <Input
+          type="text"
+          placeholder="Last Name"
+          className="mb-2 py-4"
+          required
+        />
+      </div>
       <Input type="email" placeholder="Email" className="mb-2 py-4" required />
       <PasswordInput
         name="password"
         placeholder="Password"
         className="mt-4 py-4"
       />
-      <div className="flex items-center justify-between text-sm my-4">
+      <div className="flex items-center  text-sm my-4">
         <label className="flex items-center gap-2 cursor-pointer font-urbanist text-interface1">
           <input
             type="checkbox"
             className="accent-primary rounded-full w-4 h-4"
           />
-          Remember me
+          By proceding you agree to the
         </label>
 
-        <Link
-          href="/auth/login/modal/auth/reset-password"
+        <a
+          href="#"
           className="text-primary font-urbanist hover:underline font-medium"
         >
-          Forgot your password?
-        </Link>
+          Terms and conditions
+        </a>
       </div>
       <Button
         variant="primary"
@@ -46,9 +60,9 @@ export const LoginForm = () => {
       </div>
       <GoogleAppleButtons />
       <h4 className="text-base text-gray-500 font-urbanist mt-4 tracking-wide">
-        Don´t have an account?
+        Already have an account?
         <Link
-          href="register"
+          href="/auth/login"
           className="font-urbanist text-primary text-base ml-1 hover:underline font-medium"
         >
           Get started
