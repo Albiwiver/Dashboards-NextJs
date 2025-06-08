@@ -13,8 +13,10 @@ import {
 } from "@/app/validations/authValidation";
 import { createUser } from "@/services/auth";
 import { useAuthStore } from "@/store/userStore";
+import { useState } from "react";
 
 export const RegisterForm = () => {
+  const [error, setError] = useState<string | undefined>(undefined);
   const { setUser } = useAuthStore();
 
   const {
@@ -44,10 +46,37 @@ export const RegisterForm = () => {
       });
 
       reset();
+      setError(undefined);
       console.log("User registered successfully!");
-    } catch (error) {
-      console.error("Error creating user:", error);
-      // Puedes mostrar un toast de error aquí
+    } catch (error: unknown) {
+      if (
+        error &&
+        typeof error === "object" &&
+        "response" in error &&
+        typeof (error as any).response === "object" &&
+        "data" in (error as any).response
+      ) {
+        const data = (error as any).response.data;
+        if (data && typeof data === "object" && "error" in data) {
+          const apiError = data.error;
+          if (
+            apiError &&
+            typeof apiError === "object" &&
+            "message" in apiError &&
+            typeof apiError.message === "string"
+          ) {
+            setError(apiError.message);
+            return;
+          }
+        }
+        if (typeof data === "string") {
+          setError(data);
+          return;
+        }
+      }
+
+      console.error("Unknown error", error);
+      setError("An unexpected error occurred");
     }
   };
 
@@ -90,12 +119,13 @@ export const RegisterForm = () => {
       )}
 
       <PasswordInput
-        name="password"
         placeholder="Password"
         className="mt-4 py-4"
-        register={register("password")}
+        {...register("password")}
         error={errors.password?.message}
       />
+
+      {error && <p className="text-red-500 text-sm">{error}</p>}
 
       <div className="flex items-center text-sm my-4">
         <label className="flex items-center gap-2 cursor-pointer font-urbanist text-interface1">
