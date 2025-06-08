@@ -15,11 +15,11 @@ import { createUser } from "@/services/auth";
 import { useAuthStore } from "@/store/userStore";
 import { useState } from "react";
 import axios from "axios";
-import { ApiErexrorResponse } from "@/types/auth";
+import { ApiErrorResponse } from "@/types/auth";
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>(undefined);
-  const { setUser } = useAuthStore();
+  const { setUser, user } = useAuthStore();
 
   const {
     register,
@@ -40,22 +40,21 @@ export const RegisterForm = () => {
       });
 
       setUser({
-        id: newUser.id,
-        name: newUser.name,
-        lastName: newUser.lastName,
-        email: newUser.email,
+        id: newUser.user.id,
+        name: newUser.user.name,
+        lastName: newUser.user.lastName,
+        email: newUser.user.email,
         token: newUser.token,
       });
+      console.log(user);
 
       reset();
       setError(undefined);
       console.log("User registered successfully!");
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        const apiError = error.response?.data as ApiErexrorResponse;
+        const apiError = error.response?.data as ApiErrorResponse;
         setError(apiError?.error?.message ?? "Error desconocido");
-      } else {
-        setError("Ocurrió un error inesperado");
       }
     }
   };
