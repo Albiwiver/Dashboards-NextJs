@@ -1,37 +1,18 @@
 "use client";
-import React from "react";
+import React, { forwardRef } from "react";
 
-type InputProps = {
-  name?: string;
-  id?: string;
-  type?: string;
-  placeholder?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   className?: string;
-  required?: boolean;
 };
 
-export const Input: React.FC<InputProps> = ({
-  name = "",
-  id = "",
-  type = "text",
-  placeholder = "",
-  value,
-  onChange,
-  className = "",
-  required = false,
-}) => {
-  return (
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className = "", ...props }, ref) => (
     <input
-      name={name}
-      id={id}
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      required={required}
+      ref={ref}
+      {...props}
       className={`px-3 py-3 border font-urbanist placeholder:text-base bg-[#FAFAFA] rounded-lg w-full h-14 outline-primary border-none ${className}`}
     />
-  );
-};
+  )
+);
+
+Input.displayName = "Input";

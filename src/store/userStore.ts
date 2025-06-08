@@ -1,6 +1,4 @@
-// store/userStore.ts
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
 
 export interface User {
   id?: string;
@@ -18,31 +16,19 @@ interface AuthState {
   logout: () => void;
 }
 
-export const useAuthStore = create<AuthState>()(
-  devtools(
-    persist(
-      (set) => ({
-        user: null,
-        isAuthenticated: false,
+export const useAuthStore = create<AuthState>((set) => ({
+  user: null,
+  isAuthenticated: false,
 
-        setUser: (user) =>
-          set(() => ({
-            user,
-            isAuthenticated: true,
-          })),
+  setUser: (user) =>
+    set(() => ({
+      user,
+      isAuthenticated: true,
+    })),
 
-        logout: () =>
-          set(() => ({
-            user: null,
-            isAuthenticated: false,
-          })),
-      }),
-      {
-        name: "auth-storage", // Nombre en localStorage
-      }
-    ),
-    {
-      name: "AuthStore", // Nombre que se muestra en Zukeper
-    }
-  )
-);
+  logout: () =>
+    set(() => ({
+      user: null,
+      isAuthenticated: false,
+    })),
+}));

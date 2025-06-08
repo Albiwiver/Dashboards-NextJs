@@ -1,14 +1,11 @@
-import { useAuthStore, User } from "@/store/userStore";
+import { User } from "@/store/userStore";
 import endpoints from "./http/endpoints";
 import httpClient from "./http/httpClient";
 
-const setUser = useAuthStore.getState().setUser;
-
 export const createUser = async (user: User) => {
   try {
-    // const response = await httpClient.post(endpoints.register, user);
-
-    setUser(user);
+    const response = await httpClient.post(endpoints.register, user);
+    return response.data;
   } catch (error) {
     console.error("Error creating user:", error);
     throw error;
