@@ -14,6 +14,8 @@ import {
 import { createUser } from "@/services/auth";
 import { useAuthStore } from "@/store/userStore";
 import { useState } from "react";
+import axios from "axios";
+import { ApiErexrorResponse } from "@/types/auth";
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>(undefined);
@@ -49,34 +51,12 @@ export const RegisterForm = () => {
       setError(undefined);
       console.log("User registered successfully!");
     } catch (error: unknown) {
-      if (
-        error &&
-        typeof error === "object" &&
-        "response" in error &&
-        typeof (error as any).response === "object" &&
-        "data" in (error as any).response
-      ) {
-        const data = (error as any).response.data;
-        if (data && typeof data === "object" && "error" in data) {
-          const apiError = data.error;
-          if (
-            apiError &&
-            typeof apiError === "object" &&
-            "message" in apiError &&
-            typeof apiError.message === "string"
-          ) {
-            setError(apiError.message);
-            return;
-          }
-        }
-        if (typeof data === "string") {
-          setError(data);
-          return;
-        }
+      if (axios.isAxiosError(error)) {
+        const apiError = error.response?.data as ApiErexrorResponse;
+        setError(apiError?.error?.message ?? "Error desconocido");
+      } else {
+        setError("Ocurrió un error inesperado");
       }
-
-      console.error("Unknown error", error);
-      setError("An unexpected error occurred");
     }
   };
 
