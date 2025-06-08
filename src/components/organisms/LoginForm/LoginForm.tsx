@@ -5,6 +5,7 @@ import { Button } from "@/components/atoms/Button/Button";
 import { GoogleAppleButtons } from "../../molecules/GoogleAppleButtons/GoogleAppleButtons";
 
 export const LoginForm = () => {
+  const handleChange = () => {};
   return (
     <form className="flex flex-col space-y-2 w-3/4 mx-auto">
       <h3 className="text-interface1 font-bold text-3xl font-poppins mb-12">
@@ -15,6 +16,8 @@ export const LoginForm = () => {
         name="password"
         placeholder="Password"
         className="mt-4 py-4"
+        value=""
+        onChange={handleChange}
       />
       <div className="flex items-center justify-between text-sm my-4">
         <label className="flex items-center gap-2 cursor-pointer font-urbanist text-interface1">

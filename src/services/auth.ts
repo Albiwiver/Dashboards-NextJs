@@ -1,18 +1,26 @@
-import axios from "axios";
+import { useAuthStore, User } from "@/store/userStore";
+import endpoints from "./http/endpoints";
+import httpClient from "./http/httpClient";
 
-createUser = async (userData: any) => {
+const setUser = useAuthStore.getState().setUser;
+
+export const createUser = async (user: User) => {
   try {
-    const response = await axios.post("/api/auth/register", userData);
-    return response.data;
+    // const response = await httpClient.post(endpoints.register, user);
+
+    setUser(user);
   } catch (error) {
     console.error("Error creating user:", error);
     throw error;
   }
 };
 
-getUser = async (userId: string) => {
+export const getUser = async (userName: string, password: string) => {
   try {
-    const response = await axios.get(`/api/auth/user/${userId}`);
+    const response = await httpClient.post(endpoints.login, {
+      userName,
+      password,
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching user:", error);
@@ -20,9 +28,11 @@ getUser = async (userId: string) => {
   }
 };
 
-forgotPassword = async (email: string) => {
+export const forgotPassword = async (email: string) => {
   try {
-    const response = await axios.post("/api/auth/forgot-password", { email });
+    const response = await httpClient.post(endpoints.forgotPassword, {
+      email,
+    });
     return response.data;
   } catch (error) {
     console.error("Error in forgot password:", error);
@@ -30,9 +40,9 @@ forgotPassword = async (email: string) => {
   }
 };
 
-resetPassword = async (token: string, newPassword: string) => {
+export const resetPassword = async (token: string, newPassword: string) => {
   try {
-    const response = await axios.post("/api/auth/reset-password", {
+    const response = await httpClient.post(endpoints.resetPassword, {
       token,
       newPassword,
     });
