@@ -1,4 +1,5 @@
-// src/components/layouts/AuthLayout.tsx
+"use client";
+
 import { ReactNode } from "react";
 import { Logo } from "@/components/atoms/Logo/Logo";
 import { HeroImage } from "@/components/atoms/HeroImage/HeroImage";

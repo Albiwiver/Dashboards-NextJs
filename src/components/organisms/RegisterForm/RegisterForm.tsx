@@ -10,51 +10,41 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   registerSchema,
   RegisterFormData,
-} from "@/app/validations/authValidation";
-import { createUser } from "@/services/auth";
-import { useAuthStore } from "@/store/userStore";
-import { useState } from "react";
+} from "@/app/validations/registerValidation";
+import { createUser } from "@/services/authServices";
 import axios from "axios";
-import { ApiErrorResponse } from "@/types/auth";
+import { ApiErrorResponse } from "@/types/authType";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
-  const [error, setError] = useState<string | undefined>(undefined);
-  const { setUser, user } = useAuthStore();
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async (userData: RegisterFormData) => {
     try {
-      const newUser = await createUser({
-        name: data.name,
-        lastName: data.lastName,
-        email: data.email,
-        password: data.password,
+      await createUser({
+        name: userData.name,
+        lastName: userData.lastName,
+        email: userData.email,
+        password: userData.password,
       });
+      router.push("/auth/login");
 
-      setUser({
-        id: newUser.user.id,
-        name: newUser.user.name,
-        lastName: newUser.user.lastName,
-        email: newUser.user.email,
-        token: newUser.token,
-      });
-      console.log(user);
+      toast.success("Account created successfully!");
 
-      reset();
-      setError(undefined);
       console.log("User registered successfully!");
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const apiError = error.response?.data as ApiErrorResponse;
-        setError(apiError?.error?.message ?? "Error desconocido");
+        toast.error(apiError?.error?.message ?? "Error desconocido");
       }
     }
   };
@@ -103,8 +93,6 @@ export const RegisterForm = () => {
         {...register("password")}
         error={errors.password?.message}
       />
-
-      {error && <p className="text-red-500 text-sm">{error}</p>}
 
       <div className="flex items-center text-sm my-4">
         <label className="flex items-center gap-2 cursor-pointer font-urbanist text-interface1">

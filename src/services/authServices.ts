@@ -12,10 +12,10 @@ export const createUser = async (user: User) => {
   }
 };
 
-export const getUser = async (userName: string, password: string) => {
+export const getUser = async (email: string, password: string) => {
   try {
     const response = await httpClient.post(endpoints.login, {
-      userName,
+      email,
       password,
     });
     return response.data;
@@ -37,11 +37,11 @@ export const forgotPassword = async (email: string) => {
   }
 };
 
-export const resetPassword = async (token: string, newPassword: string) => {
+export const resetPassword = async (token: string, password: string) => {
   try {
     const response = await httpClient.post(endpoints.resetPassword, {
       token,
-      newPassword,
+      password,
     });
     return response.data;
   } catch (error) {

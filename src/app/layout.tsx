@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Urbanist } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -27,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${urbanist.variable} antialiased`}>
+        <Toaster richColors position="top-right" />
         {children}
       </body>
     </html>

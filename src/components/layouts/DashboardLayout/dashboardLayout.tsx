@@ -1,18 +1,12 @@
-import Sidebar from "@/components/organisms/Sidebar/Sidebar";
-import Header from "@/components/organisms/Header/Header";
-import "../globals.css";
-
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen bg-gray-100 text-gray-900">
-      <Sidebar />
+    <div className="flex min-h-screen w-full bg-red-300">
       <div className="flex flex-col flex-1">
-        <Header />
-        <main className="p-4">{children}</main>
+        <main className="">{children}</main>
       </div>
     </div>
   );
