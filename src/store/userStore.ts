@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface User {
   id?: string;
@@ -6,8 +7,8 @@ export interface User {
   email: string;
   lastName: string;
   token?: string;
-  image?: string;
   password?: string;
+  image?: string;
 }
 
 interface AuthState {
@@ -17,19 +18,28 @@ interface AuthState {
   logout: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  isAuthenticated: false,
-
-  setUser: (user) =>
-    set(() => ({
-      user,
-      isAuthenticated: true,
-    })),
-
-  logout: () =>
-    set(() => ({
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
       user: null,
       isAuthenticated: false,
-    })),
-}));
+      setUser: (user) =>
+        set(() => ({
+          user,
+          isAuthenticated: true,
+        })),
+      logout: () =>
+        set(() => ({
+          user: null,
+          isAuthenticated: false,
+        })),
+    }),
+    {
+      name: "auth-storage", // clave en localStorage
+      partialize: (state) => ({
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      }),
+    }
+  )
+);

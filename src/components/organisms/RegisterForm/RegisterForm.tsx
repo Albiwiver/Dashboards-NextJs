@@ -13,13 +13,22 @@ import {
 } from "@/app/validations/authValidation";
 import { createUser } from "@/services/auth";
 import { useAuthStore } from "@/store/userStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { ApiErrorResponse } from "@/types/auth";
+import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>(undefined);
-  const { setUser, user } = useAuthStore();
+  const setUser = useAuthStore((state) => state.setUser);
+  const { user } = useAuthStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user?.token) {
+      router.replace("/dashboard");
+    }
+  }, [user, router]);
 
   const {
     register,
@@ -32,12 +41,15 @@ export const RegisterForm = () => {
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
+      console.log("No estamos llegando");
       const newUser = await createUser({
         name: data.name,
         lastName: data.lastName,
         email: data.email,
         password: data.password,
       });
+
+      console.log(newUser);
 
       setUser({
         id: newUser.user.id,
@@ -46,7 +58,6 @@ export const RegisterForm = () => {
         email: newUser.user.email,
         token: newUser.token,
       });
-      console.log(user);
 
       reset();
       setError(undefined);
@@ -151,6 +162,12 @@ export const RegisterForm = () => {
           Get started
         </Link>
       </h4>
+
+      {user && (
+        <pre className="text-xs text-gray-500">
+          {JSON.stringify(user, null, 2)}
+        </pre>
+      )}
     </form>
   );
 };
