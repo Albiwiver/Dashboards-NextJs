@@ -7,8 +7,8 @@ export interface User {
   email: string;
   lastName: string;
   token?: string;
-  image?: string;
   password?: string;
+  image?: string;
 }
 
 interface AuthState {

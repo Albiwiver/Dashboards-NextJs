@@ -5,7 +5,7 @@ import httpClient from "./http/httpClient";
 export const createUser = async (user: User) => {
   try {
     const response = await httpClient.post(endpoints.register, user);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error("Error creating user:", error);
     throw error;
