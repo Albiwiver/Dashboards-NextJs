@@ -3,17 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  --color-primary: #34caa5;
-  --color-interface1: #04091e;
-  --color-interface2: #747681;
-  --color-interface3: #3f435c;
-  --color-greyUi: #fafafa;
-
-  --font-poppins: "Poppins", sans-serif;
-  --font-urbanist: "Urbanist", sans-serif;
-}
-
 body {
   min-height: 100vh;
 }
@@ -41,6 +30,14 @@ body {
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-primary: #34caa5;
+  --color-interface1: #04091e;
+  --color-interface2: #747681;
+  --color-interface3: #3f435c;
+  --color-greyUi: #fafafa;
+
+  --font-poppins: "Poppins", sans-serif;
+  --font-urbanist: "Urbanist", sans-serif;
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
