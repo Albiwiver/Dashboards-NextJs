@@ -1,5 +1,5 @@
 import { AppSidebar } from "@/components/organisms/Sidebar/Sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import DashboardLayout from "@/components/layouts/DashboardLayout/dashboardLayout";
 import { ReactNode } from "react";
 
@@ -13,10 +13,7 @@ export default function MainDashboardLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-      <DashboardLayout>
-        <SidebarTrigger />
-        {children}
-      </DashboardLayout>
+      <DashboardLayout>{children}</DashboardLayout>
     </SidebarProvider>
   );
 }
