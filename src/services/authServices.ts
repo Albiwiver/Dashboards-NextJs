@@ -12,6 +12,21 @@ export const createUser = async (user: User) => {
   }
 };
 
+export const uploadCsv = async (formData: FormData) => {
+  try {
+    const response = await httpClient.options(endpoints.forgotPassword, {
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+      data: formData,
+    });
+
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getUser = async (email: string, password: string) => {
   try {
     const response = await httpClient.post(endpoints.login, {
