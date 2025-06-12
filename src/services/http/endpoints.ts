@@ -1,4 +1,4 @@
-const endpoints = {
+export const authEndpoints = {
   register: "/auth/register",
   login: "/auth/login",
   forgotPassword: "/auth/forgot-password",
@@ -6,4 +6,12 @@ const endpoints = {
   uploadCsv: "/orders/upload-csv",
 };
 
-export default endpoints;
+export const analyticEndpoints = {
+  netIncome: "analytics/net-income",
+  totalOrders: "analytics/total-orders",
+  avgSales: "analytics/avg-sales",
+  canceledOrders: "analytics/canceled-orders",
+  orders: "analytics/orders",
+};
+
+export const orderEndpoints = {};

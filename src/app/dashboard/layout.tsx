@@ -1,3 +1,5 @@
+"use client";
+
 import { AppSidebar } from "@/components/organisms/Sidebar/Sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import DashboardLayout from "@/components/layouts/DashboardLayout/dashboardLayout";

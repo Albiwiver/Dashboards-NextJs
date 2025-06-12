@@ -1,10 +1,10 @@
 import { User } from "@/store/userStore";
-import endpoints from "./http/endpoints";
+import { authEndpoints } from "./http/endpoints";
 import httpClient from "./http/httpClient";
 
 export const createUser = async (user: User) => {
   try {
-    const response = await httpClient.post(endpoints.register, user);
+    const response = await httpClient.post(authEndpoints.register, user);
     return response.data.data;
   } catch (error) {
     console.error("Error creating user:", error);
@@ -12,24 +12,9 @@ export const createUser = async (user: User) => {
   }
 };
 
-export const uploadCsv = async (formData: FormData) => {
-  try {
-    const response = await httpClient.options(endpoints.forgotPassword, {
-      headers: {
-        "Content-type": "multipart/form-data",
-      },
-      data: formData,
-    });
-
-    console.log(response);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const getUser = async (email: string, password: string) => {
   try {
-    const response = await httpClient.post(endpoints.login, {
+    const response = await httpClient.post(authEndpoints.login, {
       email,
       password,
     });
@@ -42,7 +27,7 @@ export const getUser = async (email: string, password: string) => {
 
 export const forgotPassword = async (email: string) => {
   try {
-    const response = await httpClient.post(endpoints.forgotPassword, {
+    const response = await httpClient.post(authEndpoints.forgotPassword, {
       email,
     });
     return response.data;
@@ -54,7 +39,7 @@ export const forgotPassword = async (email: string) => {
 
 export const resetPassword = async (token: string, password: string) => {
   try {
-    const response = await httpClient.post(endpoints.resetPassword, {
+    const response = await httpClient.post(authEndpoints.resetPassword, {
       token,
       password,
     });

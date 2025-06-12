@@ -1,6 +1,7 @@
 import { devtools } from "zustand/middleware";
 import { persist } from "zustand/middleware";
 import { create } from "zustand";
+
 export interface User {
   id?: string;
   name: string;
@@ -14,6 +15,8 @@ export interface User {
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
+  hasHydrated: boolean;
+  setHasHydrated: (value: boolean) => void;
   setUser: (user: User) => void;
   logout: () => void;
 }
@@ -24,6 +27,8 @@ export const useAuthStore = create<AuthState>()(
       (set) => ({
         user: null,
         isAuthenticated: false,
+        hasHydrated: false,
+        setHasHydrated: (value) => set({ hasHydrated: value }),
 
         setUser: (user) =>
           set(
@@ -46,9 +51,12 @@ export const useAuthStore = create<AuthState>()(
           ),
       }),
       {
-        name: "auth-storage", // unique name for localStorage
+        name: "auth-storage",
+        onRehydrateStorage: () => (state) => {
+          state?.setHasHydrated(true);
+        },
       }
     ),
-    { name: "auth-store" } // nombre que verás en las Devtools
+    { name: "auth-store" }
   )
 );
