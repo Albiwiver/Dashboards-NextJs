@@ -7,11 +7,13 @@ export const authEndpoints = {
 };
 
 export const analyticEndpoints = {
-  netIncome: "analytics/net-income",
-  totalOrders: "analytics/total-orders",
-  avgSales: "analytics/avg-sales",
-  canceledOrders: "analytics/canceled-orders",
-  orders: "analytics/orders",
+  netIncome: "/analytics/net-income",
+  totalOrders: "/analytics/total-orders",
+  avgSales: "/analytics/avg-sales",
+  canceledOrders: "/analytics/canceled-orders",
+  orders: "/analytics/orders",
 };
 
-export const orderEndpoints = {};
+export const integrationEndpoints = {
+  integration: "/integrations",
+};

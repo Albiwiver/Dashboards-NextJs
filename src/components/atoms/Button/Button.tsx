@@ -22,7 +22,8 @@ export const Button: React.FC<ButtonProps> = ({
     "px-4 py-2 rounded font-semibold cursor-pointer font-urbanist focus:outline-none transition-colors";
   const variants = {
     primary: "bg-primary text-white hover:bg-primary/60",
-    secondary: "bg-gray-200 text-interface1 hover:bg-gray-300",
+    secondary:
+      "bg-gray-200 bg-white border border-gray-300 text-interface1 text-interface1 hover:bg-gray-300",
   };
 
   return (

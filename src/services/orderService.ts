@@ -1,9 +1,9 @@
-import endpoints from "./http/endpoints";
+import { authEndpoints } from "./http/endpoints";
 import httpClient from "./http/httpClient";
 
 export const uploadCsv = async (formData: FormData) => {
   try {
-    const response = await httpClient.options(endpoints.uploadCsv, {
+    const response = await httpClient.options(authEndpoints.uploadCsv, {
       headers: {
         "Content-type": "multipart/form-data",
       },

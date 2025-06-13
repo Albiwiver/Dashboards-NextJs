@@ -2,11 +2,21 @@ import { getNetIncome } from "@/services/analyticService";
 import { SalesReportCard } from "@/components/organisms/SalesReportCard/SalesReportCard";
 import { FinancialCard } from "@/components/organisms/FinancialCard/FinancialCard";
 import { OverallSalesChart } from "@/components/organisms/OverallSalesChartCard/OverallSalesChartCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+type AnalyticDTO = {
+  total: number;
+  percentageChange: string;
+};
 
 export const DashboardHome = () => {
+  const [netIncome, setNetIncome] = useState<AnalyticDTO>();
+  const getIncomeNet = async () => {
+    const netIncomeGot = await getNetIncome();
+    setNetIncome(netIncomeGot);
+  };
   useEffect(() => {
-    getNetIncome({ from: "2025-05-30", to: "2025-06-01" });
+    getIncomeNet();
   }, []);
 
   return (
@@ -15,8 +25,8 @@ export const DashboardHome = () => {
         <FinancialCard
           currency={true}
           title={"New Net Income"}
-          total={"8245"}
-          lastWeek={0.5}
+          total={netIncome?.total || 0}
+          lastWeek={netIncome?.percentageChange || "0"}
         />
         <FinancialCard
           currency={false}
@@ -26,13 +36,14 @@ export const DashboardHome = () => {
           lastWeek={1.0}
         />
         <FinancialCard
-          currency={true}
+          currency={false}
+          icon="assets/cardIcon/salesIcon.svg"
           title={"Average Sales"}
           total={"8245"}
           lastWeek={0.5}
         />
         <FinancialCard
-          currency={false}
+          currency={true}
           icon={"assets/cardIcon/salesIcon.svg"}
           title={"Impressions"}
           total={"1256"}

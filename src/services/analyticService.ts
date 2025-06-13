@@ -1,14 +1,10 @@
 import httpClient from "./http/httpClient";
 import { analyticEndpoints } from "./http/endpoints";
 
-export const getNetIncome = async (queryParams: Record<string, string>) => {
-  const params = new URLSearchParams(queryParams);
-
+export const getNetIncome = async () => {
   try {
-    const response = await httpClient.post(
-      `${analyticEndpoints.netIncome}/${params}`
-    );
-    return response.data.data;
+    const response = await httpClient.get(`${analyticEndpoints.netIncome}`);
+    return response.data;
   } catch (error) {
     console.error("error fetching net income", error);
   }

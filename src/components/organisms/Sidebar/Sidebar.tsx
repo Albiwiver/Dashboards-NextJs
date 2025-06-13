@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { Logo } from "@/components/atoms/Logo/Logo";
@@ -12,7 +13,6 @@ import {
   SidebarGroupLabel,
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -70,11 +70,10 @@ export function AppSidebar() {
                 <SidebarMenuItem className="ml-6" key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link href={item.url} className="flex items-center gap-2">
-                      <Image
+                      <img
                         src={item.icon}
                         alt={item.title}
-                        width={20}
-                        height={20}
+                        className="w-5 h-5"
                       />
                       <span
                         className={`font-urbanist text-sm font-medium transition ${

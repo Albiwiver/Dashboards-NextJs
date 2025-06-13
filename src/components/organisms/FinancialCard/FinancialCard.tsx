@@ -1,12 +1,12 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 import { FC } from "react";
 
 type financialCardProps = {
-  currency: boolean;
+  currency: true;
   title: string;
   icon?: string;
-  total: string;
-  lastWeek: number;
+  total: number;
+  lastWeek: string;
 };
 
 export const FinancialCard: FC<financialCardProps> = ({
@@ -20,31 +20,25 @@ export const FinancialCard: FC<financialCardProps> = ({
     <div className="w-full h-full px-4 py-8 flex flex-col space-y-8 items-center justify-center rounded-lg bg-white shadow-sm">
       <div className="flex w-full space-x-4">
         <div className="flex w-full justify-start items-center ml-2 space-x-2">
-          <Image
+          <img
             src={currency ? "assets/cardIcon/moneyIcon.svg" : icon}
             alt={`descripcion de ${icon}`}
-            className=" object-cover"
-            width={44}
-            height={35}
+            className=" object-cover w-11 h-9"
           />
           <span className="font-urbanist font-medium text-lg text-interface1">
             {title}
           </span>
         </div>
         <div className="flex w-full justify-center items-center space-x-6">
-          <Image
+          <img
             src="assets/cardIcon/customerIcon.svg"
             alt="customer icon"
-            className=" object-cover"
-            width={44}
-            height={20}
+            className=" object-cover ml-4 w-12 h-5"
           />
-          <Image
+          <img
             src="assets/cardIcon/optionsIcon.svg"
             alt="options icon"
-            className=" object-cover ml-2"
-            width={20}
-            height={20}
+            className=" object-cover ml-6 w-5 h-5"
           />
         </div>
       </div>
@@ -55,12 +49,10 @@ export const FinancialCard: FC<financialCardProps> = ({
             {total}
           </span>
           <div className="flex items-center justify-center">
-            <Image
+            <img
               src="assets/cardIcon/percentageIcon.svg"
               alt="percentage icon"
-              className="  object-cover"
-              width={20}
-              height={20}
+              className="  object-cover w-5 h-5"
             />
             <span className="font-urbanist text-xs text-primary">
               +{lastWeek}%
@@ -71,12 +63,10 @@ export const FinancialCard: FC<financialCardProps> = ({
           </div>
         </div>
         <div className="flex w-full items-center justify-center">
-          <Image
+          <img
             src="assets/cardIcon/barsIcon.svg"
             alt="bars icon"
-            className=" object-cover"
-            width={100}
-            height={55}
+            className=" object-cover w-[100px] h-[55px] ml-4"
           />
         </div>
       </div>
