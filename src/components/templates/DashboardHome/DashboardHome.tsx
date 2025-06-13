@@ -10,45 +10,91 @@ type AnalyticDTO = {
 };
 
 export const DashboardHome = () => {
-  const [netIncome, setNetIncome] = useState<AnalyticDTO>();
-  const getIncomeNet = async () => {
-    const netIncomeGot = await getNetIncome();
-    setNetIncome(netIncomeGot);
-  };
+  const [financing, setFinancing] = useState<Record<string, AnalyticDTO>>({
+    netIncome: {
+      total: 0,
+      percentageChange: "0",
+    },
+    totalOrders: {
+      total: 0,
+      percentageChange: "0",
+    },
+    avgSales: {
+      total: 0,
+      percentageChange: "0",
+    },
+    canceledOrders: {
+      total: 0,
+      percentageChange: "0",
+    },
+  });
+
+  const cardConfig = [
+    {
+      key: "netIncome",
+      title: "New Net Income",
+      currency: true,
+      icon: undefined,
+    },
+    {
+      key: "totalOrders",
+      title: "Total Orders",
+      currency: false,
+      icon: "assets/cardIcon/cartIcon.svg",
+    },
+    {
+      key: "avgSales",
+      title: "Average Sales",
+      currency: false,
+      icon: "assets/cardIcon/salesIcon.svg",
+    },
+    {
+      key: "canceledOrders",
+      title: "Canceled Orders",
+      currency: true,
+      icon: undefined,
+    },
+  ];
+
   useEffect(() => {
-    getIncomeNet();
+    callServices();
   }, []);
+
+  const callServices = async () => {
+    const serviceCalls = [
+      { key: "netIncome", fn: getNetIncome },
+      { key: "totalOrders", fn: getNetIncome },
+      { key: "avgSales", fn: getNetIncome },
+      { key: "canceledOrders", fn: getNetIncome },
+    ];
+
+    const results = await Promise.all(
+      serviceCalls.map(async ({ key, fn }) => {
+        const result = await fn();
+        return [key, result];
+      })
+    );
+
+    const financingData = Object.fromEntries(results);
+
+    console.log(results);
+
+    setFinancing(financingData);
+  };
 
   return (
     <section className="p-6 bg-gray-100 w-full h-full">
       <div className="grid grid-cols-3 grid-rows-4 gap-6 w-full h-screen">
-        <FinancialCard
-          currency={true}
-          title={"New Net Income"}
-          total={netIncome?.total || 0}
-          lastWeek={netIncome?.percentageChange || "0"}
-        />
-        <FinancialCard
-          currency={false}
-          icon={"assets/cardIcon/cartIcon.svg"}
-          title={"Total order"}
-          total={"1256"}
-          lastWeek={1.0}
-        />
-        <FinancialCard
-          currency={false}
-          icon="assets/cardIcon/salesIcon.svg"
-          title={"Average Sales"}
-          total={"8245"}
-          lastWeek={0.5}
-        />
-        <FinancialCard
-          currency={true}
-          icon={"assets/cardIcon/salesIcon.svg"}
-          title={"Impressions"}
-          total={"1256"}
-          lastWeek={1.0}
-        />
+        {cardConfig.map(({ key, title, currency, icon }) => (
+          <FinancialCard
+            key={key}
+            title={title}
+            currency={currency}
+            icon={icon}
+            total={financing[key].total}
+            lastWeek={financing[key].percentageChange}
+          />
+        ))}
         <div className="col-span-1 row-span-2 col-start-3 row-start-1 h-full">
           <SalesReportCard />
         </div>

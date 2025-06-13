@@ -2,7 +2,7 @@
 import { FC } from "react";
 
 type financialCardProps = {
-  currency: true;
+  currency: boolean;
   title: string;
   icon?: string;
   total: number;
@@ -55,7 +55,7 @@ export const FinancialCard: FC<financialCardProps> = ({
               className="  object-cover w-5 h-5"
             />
             <span className="font-urbanist text-xs text-primary">
-              +{lastWeek}%
+              {lastWeek}%
               <span className="font-urbanist text-interface2 ml-1">
                 from last week
               </span>
