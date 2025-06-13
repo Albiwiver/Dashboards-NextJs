@@ -44,6 +44,7 @@ export const LoginForm = () => {
         lastName: data.user.lastName,
         email: data.user.email,
         token: data.token,
+        avatar: data.user?.avatar,
       });
 
       setError(undefined);

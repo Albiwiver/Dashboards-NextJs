@@ -24,9 +24,9 @@ export const ProfileInfo = () => {
       <div className="rounded-full w-12 h-12 bg-greyUi flex items-center justify-center text-white font-semibold">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            {user?.image ? (
+            {user?.avatar ? (
               <Image
-                src={user.image}
+                src={user.avatar}
                 alt="Profile"
                 className="rounded-full h-full w-full cursor-pointer object-cover"
                 width={48}
