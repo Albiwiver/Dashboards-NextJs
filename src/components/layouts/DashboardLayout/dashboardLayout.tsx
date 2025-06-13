@@ -37,7 +37,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             Let’s check your store today
           </p>
         </div>
-        <SearchInput placeholder="Search..." />
+        <SearchInput placeholder="Search..." className="rounded-2xl" />
         <div className="flex items-center gap-4">
           <ProfileNotifications />
           <ProfileInfo />
