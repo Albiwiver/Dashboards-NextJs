@@ -9,11 +9,16 @@ export const authEndpoints = {
 export const analyticEndpoints = {
   netIncome: "/analytics/net-income",
   totalOrders: "/analytics/total-orders",
-  avgSales: "/analytics/avg-sales",
+  avgSales: "/analytics/average-sales",
   canceledOrders: "/analytics/canceled-orders",
-  orders: "/analytics/orders",
 };
 
 export const integrationEndpoints = {
   integration: "/integrations",
+};
+
+export const orderEndpoints = {
+  orders: "/orders",
+  orderDetails: "/orders/:id",
+  uploadOrderCsv: "/orders/upload-csv",
 };

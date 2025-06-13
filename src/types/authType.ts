@@ -4,3 +4,7 @@ export type ApiErrorResponse = {
     message: string;
   };
 };
+
+export type ForgotPasswordDTO = {
+  previewUrl: string;
+};

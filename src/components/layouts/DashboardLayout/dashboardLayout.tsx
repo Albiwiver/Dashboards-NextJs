@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { ProfileInfo } from "@/components/molecules/ProfileInfo/ProfileInfo";
 import { ProfileNotifications } from "@/components/molecules/ProfileNotifications/ProfileNotifications";
-import { ProfileSearchInput } from "@/components/molecules/ProfileSearchInput/ProfileSearchInput";
+import { SearchInput } from "@/components/molecules/SearchInput/SearchInput";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 interface DashboardLayoutProps {
@@ -37,7 +37,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             Let’s check your store today
           </p>
         </div>
-        <ProfileSearchInput />
+        <SearchInput placeholder="Search..." />
         <div className="flex items-center gap-4">
           <ProfileNotifications />
           <ProfileInfo />

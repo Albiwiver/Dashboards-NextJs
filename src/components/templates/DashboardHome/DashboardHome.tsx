@@ -1,15 +1,18 @@
-import { getNetIncome } from "@/services/analyticService";
+import {
+  getNetIncome,
+  getAverageSales,
+  getCanceledOrders,
+  getTotalOrders,
+} from "@/services/analyticService";
 import { SalesReportCard } from "@/components/organisms/SalesReportCard/SalesReportCard";
 import { FinancialCard } from "@/components/organisms/FinancialCard/FinancialCard";
 import { OverallSalesChart } from "@/components/organisms/OverallSalesChartCard/OverallSalesChartCard";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { AnalyticDTO } from "@/types/analyticTypes";
+import DashboardHomeSkeleton from "../Skeletons/DashboardHomeSkeleton";
 
-type AnalyticDTO = {
-  total: number;
-  percentageChange: string;
-};
-
-export const DashboardHome = () => {
+export const DashboardHome: FC = () => {
+  const [loading, setLoading] = useState(false);
   const [financing, setFinancing] = useState<Record<string, AnalyticDTO>>({
     netIncome: {
       total: 0,
@@ -51,26 +54,22 @@ export const DashboardHome = () => {
     {
       key: "canceledOrders",
       title: "Canceled Orders",
-      currency: true,
-      icon: undefined,
+      currency: false,
+      icon: "assets/cardIcon/salesIcon.svg",
     },
   ];
-
-  useEffect(() => {
-    callServices();
-  }, []);
-
   const callServices = async () => {
+    setLoading(true);
     const serviceCalls = [
       { key: "netIncome", fn: getNetIncome },
-      { key: "totalOrders", fn: getNetIncome },
-      { key: "avgSales", fn: getNetIncome },
-      { key: "canceledOrders", fn: getNetIncome },
+      { key: "totalOrders", fn: getTotalOrders },
+      { key: "avgSales", fn: getAverageSales },
+      { key: "canceledOrders", fn: getCanceledOrders },
     ];
 
     const results = await Promise.all(
       serviceCalls.map(async ({ key, fn }) => {
-        const result = await fn();
+        const result = await fn({ from: "2025-06-08", to: "2025-06-12" });
         return [key, result];
       })
     );
@@ -80,7 +79,16 @@ export const DashboardHome = () => {
     console.log(results);
 
     setFinancing(financingData);
+    setLoading(false);
   };
+
+  useEffect(() => {
+    callServices();
+  }, []);
+
+  if (loading) {
+    return <DashboardHomeSkeleton />;
+  }
 
   return (
     <section className="p-6 bg-gray-100 w-full h-full">

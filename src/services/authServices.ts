@@ -1,6 +1,7 @@
 import { User } from "@/store/userStore";
 import { authEndpoints } from "./http/endpoints";
 import httpClient from "./http/httpClient";
+import { ForgotPasswordDTO } from "@/types/authType";
 
 export const createUser = async (user: User) => {
   try {
@@ -25,12 +26,14 @@ export const getUser = async (email: string, password: string) => {
   }
 };
 
-export const forgotPassword = async (email: string) => {
+export const forgotPassword = async (
+  email: string
+): Promise<ForgotPasswordDTO> => {
   try {
     const response = await httpClient.post(authEndpoints.forgotPassword, {
       email,
     });
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error("Error in forgot password:", error);
     throw error;

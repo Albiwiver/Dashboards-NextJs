@@ -5,4 +5,6 @@ export type IntegrationDTO = {
   image: string;
   connected: boolean;
   key: string;
+  rate: string;
+  rateReviews: string;
 };

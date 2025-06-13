@@ -33,7 +33,7 @@ export const FinancialCard: FC<financialCardProps> = ({
           <img
             src="assets/cardIcon/customerIcon.svg"
             alt="customer icon"
-            className=" object-cover ml-4 w-12 h-5"
+            className=" object-cover ml-4 w-12 h-6"
           />
           <img
             src="assets/cardIcon/optionsIcon.svg"

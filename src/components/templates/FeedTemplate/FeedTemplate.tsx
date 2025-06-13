@@ -26,6 +26,10 @@ export const FeedTemplate = () => {
   useEffect(() => {
     getAllIntegrations();
   }, []);
+  if (isFetching) {
+    return <IntegrationsGridSkeleton />;
+  }
+
   return (
     <section className="bg-gray-100 w-full h-full p-12 flex flex-col space-y-6">
       <div className="flex items-center w-full justify-between">
@@ -45,8 +49,6 @@ export const FeedTemplate = () => {
           <IntegrationCard key={integration.key} integration={integration} />
         ))}
       </div>
-
-      {isFetching && <IntegrationsGridSkeleton />}
     </section>
   );
 };

@@ -26,14 +26,18 @@ export default function ForgotPasswordModal() {
   });
 
   const [serverError, setServerError] = useState<string | undefined>(undefined);
+  const [sent, setSent] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string>("");
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
     try {
       setServerError(undefined);
 
-      await forgotPassword(data.email);
+      const forgotUrl = await forgotPassword(data.email);
+      setPreviewUrl(forgotUrl.previewUrl);
 
       toast.success("Reset link sent to your email!");
+      setSent(true);
       reset();
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -64,12 +68,25 @@ export default function ForgotPasswordModal() {
           className="flex flex-col gap-4 w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <Input
-            {...register("email")}
-            type="email"
-            placeholder="Enter your email"
-            className="px-4 py-3"
-          />
+          {sent ? (
+            <p className="text-interface1 font-urbanist text-sm text-start">
+              <a
+                href={previewUrl}
+                className="text-primary text-base font-urbanist font-bold cursor-pointer"
+              >
+                Click here
+              </a>{" "}
+              to change your password
+            </p>
+          ) : (
+            <Input
+              {...register("email")}
+              type="email"
+              placeholder="Enter your email"
+              className="px-4 py-3"
+            />
+          )}
+
           {errors.email && (
             <p className="text-red-500 text-sm">{errors.email.message}</p>
           )}

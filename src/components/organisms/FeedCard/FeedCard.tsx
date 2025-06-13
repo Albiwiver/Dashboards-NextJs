@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Switch } from "@/components/ui/switch";
 import {
   Card,
@@ -20,7 +21,8 @@ type IntegrationCardProps = {
 };
 
 export const IntegrationCard: FC<IntegrationCardProps> = ({ integration }) => {
-  const { title, image, description, id, connected } = integration;
+  const { title, image, description, id, connected, rate, rateReviews } =
+    integration;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isConnected, setIsConnected] = useState<boolean>(connected);
 
@@ -69,7 +71,19 @@ export const IntegrationCard: FC<IntegrationCardProps> = ({ integration }) => {
                   <span className="font-urbanist text-sm"> Connected</span>
                 </>
               ) : (
-                <p>hola</p>
+                <div className="flex justify-start items center space-x-1">
+                  <img
+                    src="/assets/feedIcon/rate-star-icon.svg"
+                    alt="rate icon"
+                    className="w-4 h-4"
+                  />
+                  <span className="text-interface1 text-sm font-urbanist">
+                    {rate}
+                  </span>
+                  <span className="text-sm font-urbanist text-gray-400">
+                    ({rateReviews})
+                  </span>
+                </div>
               )}
             </CardDescription>
           </div>
