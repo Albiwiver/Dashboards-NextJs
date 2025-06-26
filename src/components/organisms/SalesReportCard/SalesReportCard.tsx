@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   DropdownMenu,
@@ -9,19 +10,29 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import { Doughnut } from "react-chartjs-2";
-import { useMemo } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Image from "next/image";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+type DoughnutChartData = {
+  labels: string[];
+  datasets: {
+    data: number[];
+    backgroundColor: string[];
+    borderWidth: number;
+  }[];
+};
+
 export const SalesReportCard = () => {
-  const data = useMemo(() => {
+  const [data, setData] = useState<DoughnutChartData | null>(null);
+
+  useEffect(() => {
     const personalWebsite = Math.floor(Math.random() * 60) + 20;
     const google = Math.floor(Math.random() * (100 - personalWebsite));
     const others = 100 - personalWebsite - google;
 
-    return {
+    setData({
       labels: ["Personal website", "Google", "Others"],
       datasets: [
         {
@@ -30,8 +41,10 @@ export const SalesReportCard = () => {
           borderWidth: 0,
         },
       ],
-    };
+    });
   }, []);
+
+  if (!data) return null;
 
   return (
     <Card className="px-4 flex flex-col h-full py-8 space-y-4">
@@ -65,7 +78,7 @@ export const SalesReportCard = () => {
             }}
           />
           <Image
-            src="assets/cardIcon/doughnut-shopping-cart.svg"
+            src="/assets/cardIcon/doughnut-shopping-cart.svg"
             alt="center icon"
             className="absolute"
             width={40}

@@ -1,3 +1,3 @@
 export const SavingsTemplate = () => {
-  return <div>SavingsTemplate</div>;
+  return <div></div>;
 };

@@ -5,7 +5,7 @@ type ButtonProps = {
   children?: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "tertiary" | "quaternary";
   disabled?: boolean;
   className?: string;
 };
@@ -24,6 +24,10 @@ export const Button: React.FC<ButtonProps> = ({
     primary: "bg-primary text-white hover:bg-primary/60",
     secondary:
       "bg-gray-200 bg-white border border-gray-300 text-interface1 text-interface1 hover:bg-gray-300",
+    tertiary:
+      "bg-white text-primary font-urbanist font-semibold cursor-pointer px-4 py-2 rounded border border-primary",
+    quaternary:
+      "text-interface1 bg-white rounded px-4 py-2 flex justify-center items-center space-x-4 hover:text-primary font-urbanist font-semibold cursor-pointer",
   };
 
   return (

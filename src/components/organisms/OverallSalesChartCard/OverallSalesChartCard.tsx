@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -11,19 +12,30 @@ import {
 } from "chart.js";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { CalendarDays } from "lucide-react";
-import { useMemo } from "react";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
+type ChartDataset = {
+  label: string;
+  data: number[];
+  backgroundColor: string;
+  borderRadius: number;
+};
+
 export const OverallSalesChart = () => {
-  const data = useMemo(() => {
+  const [chartData, setChartData] = useState<{
+    labels: string[];
+    datasets: ChartDataset[];
+  } | null>(null);
+
+  useEffect(() => {
     const randomData = () =>
       Array.from(
         { length: 5 },
         () => Math.floor(Math.random() * 10000) + 10000
       );
 
-    return {
+    const newData = {
       labels: ["Apr 25", "Apr 26", "Apr 27", "Apr 28", "Apr 29"],
       datasets: [
         {
@@ -46,7 +58,11 @@ export const OverallSalesChart = () => {
         },
       ],
     };
+
+    setChartData(newData);
   }, []);
+
+  if (!chartData) return null;
 
   const options = {
     responsive: true,
@@ -66,20 +82,21 @@ export const OverallSalesChart = () => {
           callback: function (value: string | number) {
             const numericValue =
               typeof value === "string" ? parseInt(value) : value;
-            if (numericValue >= 1000) {
-              return numericValue / 1000 + "K";
-            }
-            return numericValue;
+            return numericValue >= 1000
+              ? numericValue / 1000 + "K"
+              : numericValue;
           },
         },
       },
     },
   };
 
-  const total = data.datasets
+  const total = chartData.datasets
     .flatMap((d) => d.data)
     .reduce((acc, val) => acc + val, 0)
     .toLocaleString();
+
+  const weeklyIncrease = (Math.random() * 30).toFixed(1); // puedes moverlo a otro useState también si quieres control total
 
   return (
     <Card className="col-span-3 row-span-2 flex flex-col justify-between p-6 bg-white shadow rounded-lg">
@@ -90,7 +107,7 @@ export const OverallSalesChart = () => {
             ${total}
           </CardTitle>
           <p className="text-xs font-semibold text-primary mt-1">
-            +{(Math.random() * 30).toFixed(1)}% from last week
+            +{weeklyIncrease}% from last week
           </p>
         </div>
         <button className="flex items-center gap-1 text-sm text-interface2 font-urbanist mr-10 border px-2 py-1 rounded-lg">
@@ -100,7 +117,7 @@ export const OverallSalesChart = () => {
       </CardHeader>
 
       <CardContent className="flex-1 flex items-center justify-center h-[300px]">
-        <Bar data={data} options={options} className="w-full h-full" />
+        <Bar data={chartData} options={options} className="w-full h-full" />
       </CardContent>
     </Card>
   );

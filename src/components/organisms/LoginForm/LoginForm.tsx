@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { setCookie } from "cookies-next";
 import { Input } from "@/components/atoms/Input/Input";
 import { PasswordInput } from "@/components/molecules/PasswordInput/PasswordInput";
 import { Button } from "@/components/atoms/Button/Button";
@@ -37,6 +38,11 @@ export const LoginForm = () => {
     try {
       const { data } = await getUser(loggedData.email, loggedData.password);
       console.log("Logged user:", data);
+
+      setCookie("token", data.token, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+      });
 
       setUser({
         id: data.user.id,

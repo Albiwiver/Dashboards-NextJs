@@ -1,15 +1,21 @@
 import { devtools } from "zustand/middleware";
 import { persist } from "zustand/middleware";
 import { create } from "zustand";
+import { setCookie, deleteCookie } from "cookies-next";
 
 export interface User {
   id?: string;
   name: string;
-  email: string;
   lastName: string;
+  email: string;
+  phone?: string;
+  country?: string;
+  city?: string;
+  address?: string;
+  postalCode?: string;
+  avatar?: string;
   token?: string;
   password?: string;
-  avatar?: string;
 }
 
 interface AuthState {
@@ -30,7 +36,7 @@ export const useAuthStore = create<AuthState>()(
         hasHydrated: false,
         setHasHydrated: (value) => set({ hasHydrated: value }),
 
-        setUser: (user) =>
+        setUser: (user) => {
           set(
             () => ({
               user,
@@ -38,9 +44,17 @@ export const useAuthStore = create<AuthState>()(
             }),
             false,
             "auth/setUser"
-          ),
+          );
 
-        logout: () =>
+          if (user.token) {
+            setCookie("token", user.token, {
+              maxAge: 60 * 60 * 24 * 7,
+              path: "/",
+            });
+          }
+        },
+
+        logout: () => {
           set(
             () => ({
               user: null,
@@ -48,7 +62,10 @@ export const useAuthStore = create<AuthState>()(
             }),
             false,
             "auth/logout"
-          ),
+          );
+
+          deleteCookie("token");
+        },
       }),
       {
         name: "auth-storage",

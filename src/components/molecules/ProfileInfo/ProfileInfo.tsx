@@ -8,9 +8,14 @@ import Image from "next/image";
 import { useAuthStore } from "@/store/userStore";
 import React from "react";
 import { IoMdLogOut } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 export const ProfileInfo = () => {
   const { user, logout } = useAuthStore((state) => state);
+  const router = useRouter();
+  const HandleGoProfile = () => {
+    router.push("/dashboard/my-profile");
+  };
 
   const getInitials = () => {
     if (!user) return "";
@@ -39,18 +44,29 @@ export const ProfileInfo = () => {
             )}
           </DropdownMenuTrigger>
           <DropdownMenuContent align="center">
-            <DropdownMenuItem>My Profile</DropdownMenuItem>
-            <DropdownMenuItem>Manage Store</DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={HandleGoProfile}
+            >
+              My Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              Manage Store
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={logout}
-              className="flex items-center gap-2 text-red-500"
+              className="flex items-center gap-2 text-red-500 cursor-pointer"
             >
               <IoMdLogOut className="text-red-500 text-lg" />
               Logout
             </DropdownMenuItem>
             <div className="border-t my-2"></div>
-            <DropdownMenuItem>Privacy policy</DropdownMenuItem>
-            <DropdownMenuItem>About</DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              Privacy policy
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              About
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

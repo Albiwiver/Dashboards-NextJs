@@ -24,12 +24,3 @@ export const getOrders = async () => {
     console.error("error fetching orders", error);
   }
 };
-
-export const getOrderDetail = async () => {
-  try {
-    const response = await httpClient.get(orderEndpoints.orderDetails);
-    return response.data;
-  } catch (error) {
-    console.error("error fetching order details", error);
-  }
-};

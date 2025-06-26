@@ -9,7 +9,7 @@ type SearchInput = {
 export const SearchInput: FC<SearchInput> = ({ className, placeholder }) => {
   return (
     <div
-      className={`flex items-center bg-gray-100 rounded px-2 py-3 flex-1 max-w-md mx-8 ${className}`}
+      className={`flex items-center bg-gray-100 rounded px-2 py-3 w-full ${className}`}
     >
       <FiSearch className="text-interface1 text-xl" />
       <input

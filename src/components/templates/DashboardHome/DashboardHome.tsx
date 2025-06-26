@@ -1,3 +1,5 @@
+"use client";
+
 import {
   getNetIncome,
   getAverageSales,
@@ -43,19 +45,19 @@ export const DashboardHome: FC = () => {
       key: "totalOrders",
       title: "Total Orders",
       currency: false,
-      icon: "assets/cardIcon/cartIcon.svg",
+      icon: "/assets/cardIcon/cartIcon.svg",
     },
     {
       key: "avgSales",
       title: "Average Sales",
       currency: false,
-      icon: "assets/cardIcon/salesIcon.svg",
+      icon: "/assets/cardIcon/salesIcon.svg",
     },
     {
       key: "canceledOrders",
       title: "Canceled Orders",
       currency: false,
-      icon: "assets/cardIcon/salesIcon.svg",
+      icon: "/assets/cardIcon/salesIcon.svg",
     },
   ];
   const callServices = async () => {
@@ -93,16 +95,20 @@ export const DashboardHome: FC = () => {
   return (
     <section className="p-6 bg-gray-100 w-full h-full">
       <div className="grid grid-cols-3 grid-rows-4 gap-6 w-full h-screen">
-        {cardConfig.map(({ key, title, currency, icon }) => (
-          <FinancialCard
-            key={key}
-            title={title}
-            currency={currency}
-            icon={icon}
-            total={financing[key].total}
-            lastWeek={financing[key].percentageChange}
-          />
-        ))}
+        {cardConfig.map(({ key, title, currency, icon }) => {
+          const data = financing[key];
+          if (!data) return null;
+          return (
+            <FinancialCard
+              key={key}
+              title={title}
+              currency={currency}
+              icon={icon}
+              total={data.total}
+              lastWeek={data.percentageChange}
+            />
+          );
+        })}
         <div className="col-span-1 row-span-2 col-start-3 row-start-1 h-full">
           <SalesReportCard />
         </div>

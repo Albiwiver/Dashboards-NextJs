@@ -19,6 +19,10 @@ export const integrationEndpoints = {
 
 export const orderEndpoints = {
   orders: "/orders",
-  orderDetails: "/orders/:id",
+  orderDetails: "/orders",
   uploadOrderCsv: "/orders/upload-csv",
+};
+
+export const customerEndpoints = {
+  customers: "/customers",
 };

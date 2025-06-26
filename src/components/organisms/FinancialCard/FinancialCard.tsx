@@ -21,7 +21,7 @@ export const FinancialCard: FC<financialCardProps> = ({
       <div className="flex w-full space-x-4">
         <div className="flex w-full justify-start items-center ml-2 space-x-2">
           <img
-            src={currency ? "assets/cardIcon/moneyIcon.svg" : icon}
+            src={currency ? "/assets/cardIcon/moneyIcon.svg" : icon || ""}
             alt={`descripcion de ${icon}`}
             className=" object-cover w-11 h-9"
           />
@@ -31,12 +31,12 @@ export const FinancialCard: FC<financialCardProps> = ({
         </div>
         <div className="flex w-full justify-center items-center space-x-6">
           <img
-            src="assets/cardIcon/customerIcon.svg"
+            src="/assets/cardIcon/customerIcon.svg"
             alt="customer icon"
             className=" object-cover ml-4 w-12 h-6"
           />
           <img
-            src="assets/cardIcon/optionsIcon.svg"
+            src="/assets/cardIcon/optionsIcon.svg"
             alt="options icon"
             className=" object-cover ml-6 w-5 h-5"
           />
@@ -50,7 +50,7 @@ export const FinancialCard: FC<financialCardProps> = ({
           </span>
           <div className="flex items-center justify-center">
             <img
-              src="assets/cardIcon/percentageIcon.svg"
+              src="/assets/cardIcon/percentageIcon.svg"
               alt="percentage icon"
               className="  object-cover w-5 h-5"
             />
@@ -64,7 +64,7 @@ export const FinancialCard: FC<financialCardProps> = ({
         </div>
         <div className="flex w-full items-center justify-center">
           <img
-            src="assets/cardIcon/barsIcon.svg"
+            src="/assets/cardIcon/barsIcon.svg"
             alt="bars icon"
             className=" object-cover w-[100px] h-[55px] ml-4"
           />

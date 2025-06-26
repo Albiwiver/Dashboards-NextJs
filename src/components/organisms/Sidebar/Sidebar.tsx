@@ -20,32 +20,32 @@ const items = [
   {
     title: "Dashboard",
     url: "/dashboard",
-    icon: "assets/icons/dashboard-icon.svg",
+    icon: "/assets/icons/dashboard-icon.svg",
   },
   {
     title: "Order Board",
     url: "/dashboard/orders",
-    icon: "assets/icons/order-board-icon.svg",
+    icon: "/assets/icons/order-board-icon.svg",
   },
   {
     title: "Feed",
     url: "/dashboard/feed",
-    icon: "assets/icons/feed-icon.svg",
+    icon: "/assets/icons/feed-icon.svg",
   },
   {
     title: "Inbox",
     url: "/dashboard/inbox",
-    icon: "assets/icons/inbox-icon.svg",
+    icon: "/assets/icons/inbox-icon.svg",
   },
   {
     title: "Savings",
     url: "/dashboard/savings",
-    icon: "assets/icons/savings-icon.svg",
+    icon: "/assets/icons/savings-icon.svg",
   },
   {
     title: "Sales",
     url: "/dashboard/sales",
-    icon: "assets/icons/sales-icon.svg",
+    icon: "/assets/icons/sales-icon.svg",
   },
 ];
 

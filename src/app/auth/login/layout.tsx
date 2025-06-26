@@ -1,14 +1,19 @@
+import { AuthLayout } from "@/components/layouts/AuthLayout/authLayout";
+import { ReactNode } from "react";
+
 export default function LoginLayout({
   children,
-  modal, // OJO: Next.js lo inyecta automáticamente si usás @modal
+  modal,
 }: {
-  children: React.ReactNode;
-  modal: React.ReactNode;
+  children: ReactNode;
+  modal: ReactNode;
 }) {
   return (
-    <>
-      <div>{children}</div>
-      {modal}
-    </>
+    <div className="flex">
+      <AuthLayout>
+        {children}
+        {modal}
+      </AuthLayout>
+    </div>
   );
 }
