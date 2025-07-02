@@ -1,5 +1,5 @@
 import { devtools } from "zustand/middleware";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { create } from "zustand";
 import { setCookie, deleteCookie } from "cookies-next";
 
@@ -25,22 +25,24 @@ interface AuthState {
   setHasHydrated: (value: boolean) => void;
   setUser: (user: User) => void;
   logout: () => void;
+  clearUserData: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         user: null,
         isAuthenticated: false,
         hasHydrated: false,
+
         setHasHydrated: (value) => set({ hasHydrated: value }),
 
         setUser: (user) => {
           set(
             () => ({
               user,
-              isAuthenticated: true,
+              isAuthenticated: !!user.token,
             }),
             false,
             "auth/setUser"
@@ -55,9 +57,17 @@ export const useAuthStore = create<AuthState>()(
         },
 
         logout: () => {
+          const currentUser = get().user;
+
           set(
             () => ({
-              user: null,
+              user: currentUser
+                ? {
+                    ...currentUser,
+                    token: undefined,
+                    password: undefined,
+                  }
+                : null,
               isAuthenticated: false,
             }),
             false,
@@ -66,12 +76,30 @@ export const useAuthStore = create<AuthState>()(
 
           deleteCookie("token");
         },
+
+        clearUserData: () => {
+          set(
+            () => ({
+              user: null,
+              isAuthenticated: false,
+            }),
+            false,
+            "auth/clearUserData"
+          );
+
+          deleteCookie("token");
+        },
       }),
       {
         name: "auth-storage",
+        storage: createJSONStorage(() => localStorage),
         onRehydrateStorage: () => (state) => {
           state?.setHasHydrated(true);
         },
+        partialize: (state) => ({
+          user: state.user,
+          isAuthenticated: state.isAuthenticated,
+        }),
       }
     ),
     { name: "auth-store" }
