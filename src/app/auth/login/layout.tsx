@@ -1,19 +1,10 @@
 import { AuthLayout } from "@/components/layouts/AuthLayout/authLayout";
 import { ReactNode } from "react";
 
-export default function LoginLayout({
-  children,
-  modal,
-}: {
-  children: ReactNode;
-  modal: ReactNode;
-}) {
+export default function LoginLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex">
-      <AuthLayout>
-        {children}
-        {modal}
-      </AuthLayout>
+      <AuthLayout>{children}</AuthLayout>
     </div>
   );
 }
