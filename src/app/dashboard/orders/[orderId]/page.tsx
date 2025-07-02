@@ -3,15 +3,19 @@ import { OrderDetailTemplate } from "@/components/templates/OrderDetailTemplate/
 import { getOrderDetail } from "@/services/orderDetailService";
 import { getCustomersServer } from "@/services/customerService.server";
 
-export default async function OrderDetailPage({
-  params,
-}: {
-  params: { orderId: string };
-}) {
+interface PageProps {
+  params: {
+    orderId: string;
+  };
+}
+
+export default async function OrderDetailPage({ params }: PageProps) {
   const order = await getOrderDetail(params.orderId);
   if (!order) return notFound();
-  const customerId = order?.customer._id;
+
+  const customerId = order.customer?._id;
   if (!customerId) return notFound();
+
   const customer = await getCustomersServer(customerId);
 
   return <OrderDetailTemplate order={order} customer={customer} />;

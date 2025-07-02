@@ -1,14 +1,17 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 
 import { Button } from "@/components/atoms/Button/Button";
 import { SearchInput } from "@/components/molecules/SearchInput/SearchInput";
 import React, { FC } from "react";
+import { useRouter } from "next/navigation";
 
 type OrdersBarProps = {
   uploadCsv: () => void;
 };
 
 export const OrdersBar: FC<OrdersBarProps> = ({ uploadCsv }) => {
+  const router = useRouter();
   return (
     <div className="w-full flex h-14 gap-2">
       <div className="w-3/5 flex justify-start">
@@ -29,7 +32,11 @@ export const OrdersBar: FC<OrdersBarProps> = ({ uploadCsv }) => {
           />
           April 11 - April 24
         </div>
-        <Button className="" variant="primary">
+        <Button
+          className=""
+          variant="primary"
+          onClick={() => router.push("/dashboard/add-customer")}
+        >
           Add Order
         </Button>
       </div>
